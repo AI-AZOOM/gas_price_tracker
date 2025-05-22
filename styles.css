@@ -1,0 +1,32 @@
+.gradient-button {
+    background: linear-gradient(to right, #3b82f6, #a855f7);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.gradient-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+}
+
+@media (max-width: 640px) {
+    .container {
+        padding: 0.5rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    button {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .text-2xl {
+        font-size: 1.25rem;
+    }
+
+    .text-lg {
+        font-size: 0.9rem;
+    }
+}
