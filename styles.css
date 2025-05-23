@@ -7,58 +7,43 @@
 body {
     font-family: Arial, sans-serif;
     color: #f0f0f0;
-    background: #1f2937;
-    /* Fallback */
+    background: #1f2937 url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaDRzNWZ2c2N1ZGJ6Y2x3aG5ydzZqemg4cHJuMnR4b2M5OXR5b3VhdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Ll2J4lYbDe0aXyOXXf/giphy.gif') no-repeat center center fixed;
+    background-size: cover;
     min-height: 100vh;
     overflow-x: hidden;
-}
-
-.animated-bg {
-    background: linear-gradient(45deg, #1f2937, #4b0082, #00008b, #1f2937);
-    background-size: 400% 400%;
-    animation: gradientAnimation 15s ease infinite;
-}
-
-@keyframes gradientAnimation {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 1rem;
+    padding: 2rem 1rem;
     text-align: center;
     position: relative;
     z-index: 10;
+    background: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent overlay for readability */
+    border-radius: 1rem;
+    margin-top: 1rem;
 }
 
 h1 {
     font-size: 2.5rem;
     font-weight: bold;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     color: #f0f0f0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .refresh-container {
     display: flex;
     justify-content: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .gradient-button {
     background: linear-gradient(to right, #3b82f6, #a855f7);
     color: white;
-    padding: 0.75rem 1.5rem;
+    padding: 0.75rem 2rem;
     border: none;
     border-radius: 0.5rem;
     cursor: pointer;
@@ -73,28 +58,40 @@ h1 {
 
 .gas-prices {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.gas-prices .loading {
+    grid-column: 1 / -1;
+    font-size: 1.25rem;
+    color: #9ca3af;
 }
 
 .gas-prices>div {
     background: rgba(31, 41, 55, 0.9);
-    /* Semi-transparent gray */
     padding: 1.5rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+}
+
+.gas-prices>div:hover {
+    transform: translateY(-5px);
 }
 
 .gas-prices h2 {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: 600;
     color: #f0f0f0;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
 }
 
 .gas-prices p:nth-child(2) {
-    font-size: 1.5rem;
-    margin-bottom: 0.25rem;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
 }
 
 .green {
@@ -110,26 +107,26 @@ h1 {
 }
 
 .gas-prices p:nth-child(3) {
-    font-size: 0.875rem;
+    font-size: 1rem;
     color: #9ca3af;
+    margin-bottom: 0.5rem;
 }
 
 .gas-prices p:nth-child(4) {
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     color: #6b7280;
-    margin-top: 0.25rem;
 }
 
 .last-updated {
-    margin-top: 1rem;
     font-size: 0.875rem;
     color: #9ca3af;
+    margin-bottom: 1rem;
 }
 
 .error-message {
-    margin-top: 1rem;
-    font-size: 0.875rem;
+    font-size: 1rem;
     color: #f87171;
+    font-weight: 500;
 }
 
 .hidden {
@@ -138,37 +135,39 @@ h1 {
 
 @media (max-width: 640px) {
     body {
-        background: #1f2937;
-    }
-
-    .animated-bg {
-        background: linear-gradient(45deg, #1f2937, #4b0082, #00008b, #1f2937);
-        background-size: 400% 400%;
-        animation: gradientAnimation 15s ease infinite;
+        background: #1f2937 url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaDRzNWZ2c2N1ZGJ6Y2x3aG5ydzZqemg4cHJuMnR4b2M5OXR5b3VhdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Ll2J4lYbDe0aXyOXXf/giphy.gif') no-repeat center center fixed;
+        background-size: cover;
+        background-attachment: scroll;
     }
 
     .container {
-        padding: 0.5rem;
+        padding: 1rem 0.5rem;
+        margin-top: 0.5rem;
     }
 
     h1 {
-        font-size: 1.5rem;
+        font-size: 1.75rem;
+        margin-bottom: 1.5rem;
     }
 
     .gradient-button {
+        padding: 0.5rem 1.5rem;
         font-size: 0.9rem;
-        padding: 0.5rem 1rem;
+    }
+
+    .gas-prices {
+        gap: 1rem;
     }
 
     .gas-prices>div {
-        padding: 1rem;
+        padding: 1.25rem;
     }
 
     .gas-prices h2 {
-        font-size: 1.125rem;
+        font-size: 1.25rem;
     }
 
     .gas-prices p:nth-child(2) {
-        font-size: 1.25rem;
+        font-size: 1.5rem;
     }
 }

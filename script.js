@@ -4,7 +4,7 @@ const errorMessage = document.getElementById("errorMessage");
 const refreshButton = document.getElementById("refresh");
 
 // Use environment variable for API key (set in Vercel dashboard)
-const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || "TM3VQG3CMJHBDUMC4I2DK4QCY2N24DG8VH"; // Fallback for local testing
+const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || "TM3VQG3CMJHBDUMC4I2DK4QCY2N24DG8VH";
 
 async function fetchEthPrice() {
     try {
@@ -13,23 +13,26 @@ async function fetchEthPrice() {
         return data.ethereum.usd;
     } catch (error) {
         console.error("Error fetching ETH price:", error);
-        return 1800; // Fallback to $1800 if API fails
+        return 1800; // Fallback
     }
 }
 
 async function fetchGasPrices() {
     try {
-        gasPricesDiv.innerHTML = '<div style="text-align: center;"><div style="display: inline-block; height: 2rem; width: 2rem; animation: spin 1s linear infinite; border-radius: 9999px; border: 4px solid #2563eb; border-right-color: transparent;"></div></div>';
+        gasPricesDiv.innerHTML = '<div class="loading">Loading gas prices...</div>';
         errorMessage.classList.add("hidden");
 
         const response = await fetch(`https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=${ETHERSCAN_API_KEY}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error: ${response.status}`);
+        }
         const data = await response.json();
 
         if (data.status !== "1") {
             throw new Error(data.message || "Failed to fetch gas prices. Check your API key or network.");
         }
 
-        const ethPrice = await fetchEthPrice(); // Fetch current ETH price
+        const ethPrice = await fetchEthPrice();
         const gasData = data.result;
         const prices = [
             { type: "Low (Safe)", gwei: gasData.SafeGasPrice, color: "green", description: "Slower, cheaper transactions" },
@@ -56,6 +59,7 @@ async function fetchGasPrices() {
         errorMessage.textContent = `Error: ${error.message}`;
         errorMessage.classList.remove("hidden");
         lastUpdated.textContent = "";
+        console.error("Fetch error:", error);
     }
 }
 

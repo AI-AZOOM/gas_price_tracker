@@ -5,19 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self' https://api.etherscan.io https://api.coingecko.com;">
+        content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self' https://api.etherscan.io https://api.coingecko.com; img-src 'self' https://media.giphy.com;">
     <title>Ethereum Gas Price Tracker</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="animated-bg">
+<body>
     <div class="container">
         <h1>Ethereum Gas Price Tracker</h1>
         <div class="refresh-container">
             <button id="refresh" class="gradient-button" aria-label="Refresh gas prices">Refresh Now</button>
         </div>
         <div id="gasPrices" class="gas-prices">
-            <!-- Gas prices will be dynamically inserted here -->
+            <div class="loading">Loading gas prices...</div>
         </div>
         <p id="lastUpdated" class="last-updated"></p>
         <p id="errorMessage" class="error-message hidden"></p>
@@ -25,7 +25,7 @@
     <script src="script.js"></script>
     <script>
         fetchGasPrices();
-        setInterval(fetchGasPrices, 30000); // Auto-refresh every 30s
+        setInterval(fetchGasPrices, 30000);
     </script>
 </body>
 
