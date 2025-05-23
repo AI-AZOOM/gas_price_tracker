@@ -3,12 +3,23 @@ const lastUpdated = document.getElementById("lastUpdated");
 const errorMessage = document.getElementById("errorMessage");
 const refreshButton = document.getElementById("refresh");
 
-// Replace with your Etherscan API key (get from https://etherscan.io/apis)
-const ETHERSCAN_API_KEY = "TM3VQG3CMJHBDUMC4I2DK4QCY2N24DG8VH";
+// Use environment variable for API key (set in Vercel dashboard)
+const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || "TM3VQG3CMJHBDUMC4I2DK4QCY2N24DG8VH"; // Fallback for local testing
+
+async function fetchEthPrice() {
+    try {
+        const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd");
+        const data = await response.json();
+        return data.ethereum.usd;
+    } catch (error) {
+        console.error("Error fetching ETH price:", error);
+        return 1800; // Fallback to $1800 if API fails
+    }
+}
 
 async function fetchGasPrices() {
     try {
-        gasPricesDiv.innerHTML = '<div class="col-span-full text-center"><div class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-blue-600 border-r-transparent"></div></div>';
+        gasPricesDiv.innerHTML = '<div style="text-align: center;"><div style="display: inline-block; height: 2rem; width: 2rem; animation: spin 1s linear infinite; border-radius: 9999px; border: 4px solid #2563eb; border-right-color: transparent;"></div></div>';
         errorMessage.classList.add("hidden");
 
         const response = await fetch(`https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=${ETHERSCAN_API_KEY}`);
@@ -18,21 +29,22 @@ async function fetchGasPrices() {
             throw new Error(data.message || "Failed to fetch gas prices. Check your API key or network.");
         }
 
+        const ethPrice = await fetchEthPrice(); // Fetch current ETH price
         const gasData = data.result;
         const prices = [
-            { type: "Low (Safe)", gwei: gasData.SafeGasPrice, color: "bg-green-500", description: "Slower, cheaper transactions" },
-            { type: "Average (Proposed)", gwei: gasData.ProposeGasPrice, color: "bg-yellow-500", description: "Balanced speed and cost" },
-            { type: "High (Fast)", gwei: gasData.FastGasPrice, color: "bg-red-500", description: "Faster, more expensive transactions" }
+            { type: "Low (Safe)", gwei: gasData.SafeGasPrice, color: "green", description: "Slower, cheaper transactions" },
+            { type: "Average (Proposed)", gwei: gasData.ProposeGasPrice, color: "yellow", description: "Balanced speed and cost" },
+            { type: "High (Fast)", gwei: gasData.FastGasPrice, color: "red", description: "Faster, more expensive transactions" }
         ];
 
         gasPricesDiv.innerHTML = "";
         prices.forEach(price => {
             gasPricesDiv.innerHTML += `
-                <div class="bg-gray-800 bg-opacity-90 p-4 rounded-lg shadow-lg">
-                    <h2 class="text-lg font-semibold text-gray-100">${price.type}</h2>
-                    <p class="text-2xl ${price.color} text-gray-100">${price.gwei} Gwei</p>
-                    <p class="text-sm text-gray-400">~$${(price.gwei * 0.000000001 * 21000 * 1800).toFixed(2)} (at $1800/ETH)</p>
-                    <p class="text-xs text-gray-500 mt-1">${price.description}</p>
+                <div>
+                    <h2>${price.type}</h2>
+                    <p class="${price.color}">${price.gwei} Gwei</p>
+                    <p>~$${(price.gwei * 0.000000001 * 21000 * ethPrice).toFixed(2)} (at $${ethPrice}/ETH)</p>
+                    <p>${price.description}</p>
                 </div>
             `;
         });

@@ -5,24 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self' https://cdn.tailwindcss.com; style-src 'self' https://cdn.tailwindcss.com; connect-src 'self' https://api.etherscan.io; img-src 'self' https://media.giphy.com;">
+        content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self' https://api.etherscan.io https://api.coingecko.com;">
     <title>Ethereum Gas Price Tracker</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="min-h-screen p-4 transition-colors duration-300 bg-gray-900 text-gray-100 overflow-x-hidden" id="body">
-    <div class="container mx-auto text-center relative z-10">
-        <h1 class="text-3xl sm:text-4xl font-bold mb-6">Ethereum Gas Price Tracker</h1>
-        <div class="flex justify-center mb-6">
-            <button id="refresh" class="gradient-button text-white px-4 py-2 rounded"
-                aria-label="Refresh gas prices">Refresh Now</button>
+<body class="animated-bg">
+    <div class="container">
+        <h1>Ethereum Gas Price Tracker</h1>
+        <div class="refresh-container">
+            <button id="refresh" class="gradient-button" aria-label="Refresh gas prices">Refresh Now</button>
         </div>
-        <div id="gasPrices" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div id="gasPrices" class="gas-prices">
             <!-- Gas prices will be dynamically inserted here -->
         </div>
-        <p id="lastUpdated" class="mt-4 text-sm text-gray-400"></p>
-        <p id="errorMessage" class="mt-4 text-sm text-red-400 hidden"></p>
+        <p id="lastUpdated" class="last-updated"></p>
+        <p id="errorMessage" class="error-message hidden"></p>
     </div>
     <script src="script.js"></script>
     <script>
