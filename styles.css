@@ -1,36 +1,174 @@
-body {
-    background: #1f2937 url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2Z2ZGJmcnY5OGY2cW1mM2x3YzBsd2N0aTB3d3V2a3ZhOWtmdWRiOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7TKSjRrfIPjeiVyM/giphy.gif') no-repeat center center fixed;
-    background-size: cover;
-    background-attachment: fixed;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+
+body {
+    font-family: Arial, sans-serif;
+    color: #f0f0f0;
+    background: #1f2937;
+    /* Fallback */
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.animated-bg {
+    background: linear-gradient(45deg, #1f2937, #4b0082, #00008b, #1f2937);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: #f0f0f0;
+}
+
+.refresh-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
 .gradient-button {
     background: linear-gradient(to right, #3b82f6, #a855f7);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
     transition: transform 0.2s, box-shadow 0.2s;
 }
+
 .gradient-button:hover {
     transform: scale(1.05);
     box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
 }
+
+.gas-prices {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.gas-prices>div {
+    background: rgba(31, 41, 55, 0.9);
+    /* Semi-transparent gray */
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.gas-prices h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #f0f0f0;
+    margin-bottom: 0.5rem;
+}
+
+.gas-prices p:nth-child(2) {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.green {
+    color: #10b981;
+}
+
+.yellow {
+    color: #f59e0b;
+}
+
+.red {
+    color: #ef4444;
+}
+
+.gas-prices p:nth-child(3) {
+    font-size: 0.875rem;
+    color: #9ca3af;
+}
+
+.gas-prices p:nth-child(4) {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+}
+
+.last-updated {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: #9ca3af;
+}
+
+.error-message {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: #f87171;
+}
+
+.hidden {
+    display: none;
+}
+
 @media (max-width: 640px) {
     body {
-        background: #1f2937 url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2Z2ZGJmcnY5OGY2cW1mM2x3YzBsd2N0aTB3d3V2a3ZhOWtmdWRiOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7TKSjRrfIPjeiVyM/giphy.gif') no-repeat center center fixed;
-        background-size: cover;
-        background-attachment: scroll;
+        background: #1f2937;
     }
+
+    .animated-bg {
+        background: linear-gradient(45deg, #1f2937, #4b0082, #00008b, #1f2937);
+        background-size: 400% 400%;
+        animation: gradientAnimation 15s ease infinite;
+    }
+
     .container {
         padding: 0.5rem;
     }
+
     h1 {
         font-size: 1.5rem;
     }
-    button {
+
+    .gradient-button {
         font-size: 0.9rem;
         padding: 0.5rem 1rem;
     }
-    .text-2xl {
-        font-size: 1.25rem;
+
+    .gas-prices>div {
+        padding: 1rem;
     }
-    .text-lg {
-        font-size: 0.9rem;
+
+    .gas-prices h2 {
+        font-size: 1.125rem;
+    }
+
+    .gas-prices p:nth-child(2) {
+        font-size: 1.25rem;
     }
 }
