@@ -1,31 +1,35 @@
+body {
+    background: #1f2937 url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2Z2ZGJmcnY5OGY2cW1mM2x3YzBsd2N0aTB3d3V2a3ZhOWtmdWRiOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7TKSjRrfIPjeiVyM/giphy.gif') no-repeat center center fixed;
+    background-size: cover;
+    background-attachment: fixed;
+}
 .gradient-button {
     background: linear-gradient(to right, #3b82f6, #a855f7);
     transition: transform 0.2s, box-shadow 0.2s;
 }
-
 .gradient-button:hover {
     transform: scale(1.05);
     box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
 }
-
 @media (max-width: 640px) {
+    body {
+        background: #1f2937 url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2Z2ZGJmcnY5OGY2cW1mM2x3YzBsd2N0aTB3d3V2a3ZhOWtmdWRiOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7TKSjRrfIPjeiVyM/giphy.gif') no-repeat center center fixed;
+        background-size: cover;
+        background-attachment: scroll;
+    }
     .container {
         padding: 0.5rem;
     }
-
     h1 {
         font-size: 1.5rem;
     }
-
     button {
         font-size: 0.9rem;
         padding: 0.5rem 1rem;
     }
-
     .text-2xl {
         font-size: 1.25rem;
     }
-
     .text-lg {
         font-size: 0.9rem;
     }
